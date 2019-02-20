@@ -1,30 +1,10 @@
-import React, { Component, Fragment, createContext } from 'react';
+import React, { Component, Fragment } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Toggle } from 'Utilities';
 import { Modal } from 'Elements';
 import User from './User';
-import { UserContext } from './UserContext';
-
-class UserProvider extends Component {
-  state = {
-    id: '123',
-    name: 'David',
-    email: 'catedavid0404@gmail.com'
-  }
-
-  render() {
-    return (
-      <UserContext.Provider
-        value={{
-          user: this.state
-        }}
-      >
-        {this.props.children}
-      </UserContext.Provider>
-    )
-  }
-}
+import UserProvider from './UserProvider';
 
 class App extends Component {
   render() {
@@ -39,7 +19,7 @@ class App extends Component {
           <Toggle>
             {({ on, toggle }) => (
               <Fragment>
-                <button onClick={toggle}>Login</button>
+                <button onClick={toggle}>Modal</button>
                 <Modal on={on} toggle={toggle}>
                   <h1>Still what's up this is scott</h1>
                 </Modal>
