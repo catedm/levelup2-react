@@ -1,8 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, createContext } from 'react';
+import { Transition, animated } from 'react-spring/renderprops';
+
 import logo from './logo.svg';
 import './App.css';
 import { Toggle } from 'Utilities';
-import { Modal } from 'Elements';
+import { Modal, Card } from 'Elements';
 import User from './User';
 import UserProvider from './UserProvider';
 
@@ -16,10 +18,27 @@ class App extends Component {
             <h1 className="App-title">Welcome to React</h1>
           </header>
           <User />
+          <section>
+            <Toggle>
+              {({ on, toggle }) => (
+                <Fragment>
+                  <button onClick={toggle}>Show / Hide</button>
+                  <Transition
+                    items={on}
+                    from={{ opacity: 0 }}
+                    enter={{ opacity: 1 }}
+                    leave={{ opacity: 0 }}
+                  >
+                    {on => on && (props => <animated.div style={props} />)}
+                  </Transition>
+                </Fragment>
+              )}
+            </Toggle>
+          </section>
           <Toggle>
             {({ on, toggle }) => (
               <Fragment>
-                <button onClick={toggle}>Modal</button>
+                <button onClick={toggle}>Login</button>
                 <Modal on={on} toggle={toggle}>
                   <h1>Still what's up this is scott</h1>
                 </Modal>
@@ -31,5 +50,11 @@ class App extends Component {
     );
   }
 }
+
+const Header = styles => (
+  <Card style={{ ...styles }}>
+    <h1>Show me</h1>
+  </Card>
+);
 
 export default App;
